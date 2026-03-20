@@ -1,0 +1,32 @@
+﻿<Window x:Class="WPF_menza_projekt.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_menza_projekt"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            
+        </StackPanel>
+
+        <StackPanel Grid.Column="4">
+            <Label HorizontalAlignment="Center">Új vendég</Label>
+            <TextBox Text="Név:"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Diák:"/>
+                <CheckBox VerticalAlignment="Center"/>
+            </StackPanel>
+            <Button Content="Hozzáadás" />
+        </StackPanel>
+    </Grid>
+</Window>

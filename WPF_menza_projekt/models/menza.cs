@@ -25,7 +25,8 @@ namespace WPF_menza_projekt.models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<vendegnapietkezes>()
+                .HasKey(x => new { x.vendegid, x.napietkezesid });
         }
     }
 }

@@ -15,18 +15,74 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0">
+        <ListView Grid.Column="0" DisplayMemberPath="nev" ItemsSource="{Binding vendegek}" x:Name="vendegeklv">
             
-        </StackPanel>
+        </ListView>
 
         <StackPanel Grid.Column="4">
             <Label HorizontalAlignment="Center">Új vendég</Label>
-            <TextBox Text="Név:"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Név:"/>
+                <TextBox x:Name="hozzaadastb" Width="100"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Diák:"/>
-                <CheckBox VerticalAlignment="Center"/>
+                <CheckBox x:Name="hozzaadascb" VerticalAlignment="Center"/>
             </StackPanel>
-            <Button Content="Hozzáadás" />
+            <Button Content="Hozzáadás" x:Name="hozzaadasbt" Click="hozzaadasbt_Click" />
+
+            <Label HorizontalAlignment="Center">Új leves</Label>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Név:"/>
+                <TextBox x:Name="levestb" Width="100"/>
+            </StackPanel>
+            <Button Content="Hozzáadás" x:Name="levesbt" Click="levesbt_Click" />
+
+            <Label HorizontalAlignment="Center">Új főétel</Label>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Név:"/>
+                <TextBox x:Name="foeteltb" Width="100"/>
+            </StackPanel>
+            <Button Content="Hozzáadás" x:Name="foetelbt" Click="foetelbt_Click" />
+
+            <Label HorizontalAlignment="Center">Új desszert</Label>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Név:"/>
+                <TextBox x:Name="desszerttb" Width="100"/>
+            </StackPanel>
+            <Button Content="Hozzáadás" x:Name="desszertbt" Click="desszertbt_Click" />
         </StackPanel>
+
+        <StackPanel Grid.Column="3">
+            <Label HorizontalAlignment="Center">leves</Label>
+            <ComboBox DisplayMemberPath="nev" ItemsSource="{Binding levesek}" x:Name="levescb"/>
+            <Label HorizontalAlignment="Center">foetel</Label>
+            <ComboBox DisplayMemberPath="nev" ItemsSource="{Binding foetelek}" x:Name="foetelcb"/>
+            <Label HorizontalAlignment="Center">deszsert</Label>
+            <ComboBox DisplayMemberPath="nev" ItemsSource="{Binding desszertek}" x:Name="desszertcb"/>
+            <DatePicker x:Name="datumpicker"/>
+            <Button Content="Hozzáadás" x:Name="napietkezesbt" Click="napietkezesbt_Click"/>
+        </StackPanel>
+        <ListView Grid.Column="1" ItemsSource="{Binding napietkezesek}" x:Name="napietkeslv">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="{Binding datum}" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="leves:"/>
+                            <Label Content="{Binding leves.nev}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="foetel:"/>
+                            <Label Content="{Binding foetel.nev}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="desszert:"/>
+                            <Label Content="{Binding desszert.nev}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Window>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WPF_menza_projekt.models;
 
@@ -11,9 +12,11 @@ using WPF_menza_projekt.models;
 namespace WPF_menza_projekt.Migrations
 {
     [DbContext(typeof(menza))]
-    partial class menzaModelSnapshot : ModelSnapshot
+    [Migration("20260320131256_harmadik")]
+    partial class harmadik
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

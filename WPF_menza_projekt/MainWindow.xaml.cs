@@ -144,6 +144,7 @@ namespace WPF_menza_projekt
                 levescb.SelectedItem = null;    
                 foetelcb.SelectedItem = null;
                 desszertcb.SelectedItem = null;
+                vendegekfrissitese();
                 context.SaveChanges();
             }
         }

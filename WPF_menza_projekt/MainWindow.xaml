@@ -67,19 +67,17 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <Label Content="{Binding datum}" FontWeight="Bold"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="leves:"/>
-                            <Label Content="{Binding leves.nev}"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="foetel:"/>
-                            <Label Content="{Binding foetel.nev}"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="desszert:"/>
-                            <Label Content="{Binding desszert.nev}"/>
-                        </StackPanel>
+                        <TextBlock Text="{Binding datum, StringFormat='{}{0:yyyy.MM.dd}'}" FontWeight="Bold"/>
+                        <TextBlock>
+                            <Run Text="leves:"/>
+                            <Run Text="{Binding leves.nev}"/>
+                            <LineBreak/>
+                            <Run Text="foetel:"/>
+                            <Run Text="{Binding foetel.nev}"/>
+                            <LineBreak/>
+                            <Run Text="desszert:"/>
+                            <Run Text="{Binding desszert.nev}"/>
+                        </TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

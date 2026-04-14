@@ -34,21 +34,33 @@ namespace WPF_menza_projekt
 
         private void hozzaadasbt_Click(object sender, RoutedEventArgs e)
         {
-            if(hozzaadastb.Text.Trim() != "")
-            { 
+            if (hozzaadastb.Text.Trim() != "")
+            {
+                string ujNev = hozzaadastb.Text.Trim();
+
+                if (context.vendegek.Any(x => x.nev == ujNev))
+                {
+                    MessageBox.Show("Ilyen nevű vendég már létezik!");
+                    return;
+                }
+
                 vendeg vendeg = new()
                 {
-                    nev = hozzaadastb.Text,
-                    diak = (bool)hozzaadascb.IsChecked
+                    nev = ujNev,
+                    diak = hozzaadascb.IsChecked == true
                 };
+
                 context.vendegek.Add(vendeg);
                 context.SaveChanges();
+
                 vendegekfrissitese();
                 hozzaadastb.Text = "";
                 hozzaadascb.IsChecked = false;
             }
             else
-                MessageBox.Show("nem lehet ures!");
+            {
+                MessageBox.Show("nem lehet üres!");
+            }
         }
         private void vendegekfrissitese()
         {
@@ -101,7 +113,9 @@ namespace WPF_menza_projekt
             }
             else
                 MessageBox.Show("nem lehet ures!");
-            
+            vendegekfrissitese();
+
+
         }
 
         private void foetelbt_Click(object sender, RoutedEventArgs e)
@@ -128,7 +142,7 @@ namespace WPF_menza_projekt
             {
                 MessageBox.Show("nem lehet ures!");
             }
-
+            vendegekfrissitese();
         }
 
         private void desszertbt_Click(object sender, RoutedEventArgs e)
@@ -155,7 +169,7 @@ namespace WPF_menza_projekt
             {
                 MessageBox.Show("nem lehet ures!");
             }
-
+            vendegekfrissitese();
         }
 
         private void napietkezesbt_Click(object sender, RoutedEventArgs e)
@@ -225,5 +239,21 @@ namespace WPF_menza_projekt
 
             MessageBox.Show("Sikeres összekapcsolás!");
         }
+        private void vendegeklv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedVendeg = vendegeklv.SelectedItem as vendeg;
+
+            if (selectedVendeg == null)
+                return;
+
+
+            var etkezesek = context.vendegnapietkezesek
+                .Where(x => x.vendegid == selectedVendeg.Id)
+                .Select(x => x.napietkezes)
+                .ToList();
+
+            vendegEtkezesLv.ItemsSource = etkezesek;
+        }
+
     }
 }

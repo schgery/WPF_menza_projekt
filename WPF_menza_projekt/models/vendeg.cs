@@ -11,5 +11,17 @@ namespace WPF_menza_projekt.models
         public int Id { get; set; }
         public string nev { get; set; }
         public bool diak { get; set; } = true;
+
+        public override string? ToString()
+        {
+            if (diak)
+            {
+                return $"{nev} (diák)";
+            }
+            else
+            {
+                return nev;
+            }
+        }
     }
 }

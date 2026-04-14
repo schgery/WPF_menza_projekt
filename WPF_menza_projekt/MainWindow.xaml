@@ -282,10 +282,11 @@
         <Border Style="{StaticResource CardPanel}" Grid.Column="0">
             <DockPanel>
                 <TextBlock DockPanel.Dock="Top" Style="{StaticResource SectionHeader}">👤 VENDÉGEK</TextBlock>
-                <ListView DisplayMemberPath="nev"
+                <ListView SelectionChanged="vendegeklv_SelectionChanged"
                           ItemsSource="{Binding vendegek}"
                           x:Name="vendegeklv"
-                          BorderThickness="0"/>
+                          BorderThickness="0"
+                    />
             </DockPanel>
         </Border>
         <Border Style="{StaticResource CardPanel}" Grid.Column="2">
@@ -300,6 +301,19 @@
                 Width="140"
                 Height="40"
                 Click="osszkapcsolasbt_Click"/>
+                <ListView x:Name="vendegEtkezesLv" Margin="0,10,0,0" Height="150">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Foreground="#F5ECD7">
+                <Run Text="{Binding datum, StringFormat='{}{0:yyyy.MM.dd}'}"/>
+                <Run Text=" - "/>
+                <Run Text="{Binding leves.nev}"/>
+                <Run Text=", "/>
+                <Run Text="{Binding foetel.nev}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
         </Border>
         <!-- ── 2. oszlop: Napi étkezések ── -->

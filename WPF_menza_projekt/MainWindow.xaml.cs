@@ -204,12 +204,11 @@ namespace WPF_menza_projekt
                 return;
             }
 
-            // 🔥 DUPLIKÁCIÓ ELLENŐRZÉS
-            bool exists = context.vendegnapietkezesek.Any(x =>
+            bool jo = context.vendegnapietkezesek.Any(x =>
                 x.vendegid == selectedVendeg.Id &&
                 x.napietkezesid == selectedEtkezes.Id);
 
-            if (exists)
+            if (jo)
             {
                 MessageBox.Show("Ez már össze van kapcsolva!");
                 return;

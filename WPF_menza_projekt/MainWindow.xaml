@@ -157,23 +157,24 @@
         <!-- ComboBox stílus -->
         <Style TargetType="ComboBox">
             <Setter Property="Background" Value="{StaticResource BgInput}"/>
-            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="Foreground" Value="Black"/>
             <Setter Property="BorderBrush" Value="{StaticResource BorderSubtle}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="6,5"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Margin" Value="0,0,0,6"/>
 
-            <!-- EZ HIÁNYZIK -->
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
                     <Style TargetType="ComboBoxItem">
-                        <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
-                        <Setter Property="Background" Value="{StaticResource BgCard}"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Background" Value="White"/>
                         <Setter Property="Padding" Value="6,4"/>
+
                         <Style.Triggers>
                             <Trigger Property="IsHighlighted" Value="True">
-                                <Setter Property="Background" Value="{StaticResource BgInput}"/>
+                                <Setter Property="Background" Value="#E8874A"/>
+                                <Setter Property="Foreground" Value="White"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -184,7 +185,7 @@
         <!-- DatePicker stílus -->
         <Style TargetType="DatePicker">
             <Setter Property="Background"       Value="{StaticResource BgInput}"/>
-            <Setter Property="Foreground"       Value="{StaticResource TextPrimary}"/>
+            <!--<Setter Property="Foreground"       Value="{StaticResource TextPrimary}"/>-->
             <Setter Property="BorderBrush"      Value="{StaticResource BorderSubtle}"/>
             <Setter Property="BorderThickness"  Value="1"/>
             <Setter Property="Padding"          Value="4"/>
@@ -272,7 +273,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="16"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -287,7 +288,20 @@
                           BorderThickness="0"/>
             </DockPanel>
         </Border>
+        <Border Style="{StaticResource CardPanel}" Grid.Column="2">
+            <StackPanel  HorizontalAlignment="Center">
 
+                <TextBlock Text="🔗 ÖSSZEKAPCSOLÁS"
+                   FontWeight="Bold"
+                   Foreground="#D4A843"
+                   Margin="0,0,0,10"/>
+
+                <Button Content="➕ Összekapcsolás"
+                Width="140"
+                Height="40"
+                Click="osszkapcsolasbt_Click"/>
+            </StackPanel>
+        </Border>
         <!-- ── 2. oszlop: Napi étkezések ── -->
         <Border Style="{StaticResource CardPanel}" Grid.Column="1">
             <DockPanel>
@@ -329,7 +343,7 @@
                 <TextBlock Style="{StaticResource SectionHeader}">🗓 ÉTKEZÉS RÖGZÍTÉSE</TextBlock>
 
                 <Label Content="Leves"/>
-                <ComboBox DisplayMemberPath="nev" ItemsSource="{Binding levesek}" x:Name="levescb"/>
+                <ComboBox DisplayMemberPath="nev" ItemsSource="{Binding levesek}" x:Name="levescb" />
 
                 <Label Content="Főétel"/>
                 <ComboBox DisplayMemberPath="nev" ItemsSource="{Binding foetelek}" x:Name="foetelcb"/>
@@ -343,7 +357,7 @@
                 <Button Content="➕  Hozzáadás" x:Name="napietkezesbt" Click="napietkezesbt_Click"/>
             </StackPanel>
         </Border>
-
+        
         <!-- ── 5. oszlop: Adatfelvitel ── -->
         <Border Style="{StaticResource CardPanel}" Grid.Column="4">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -398,6 +412,5 @@
                 </StackPanel>
             </ScrollViewer>
         </Border>
-
     </Grid>
 </Window>

@@ -83,10 +83,19 @@ namespace WPF_menza_projekt
         {
             if (levestb.Text.Trim() != "")
             {
+                string ujNev = levestb.Text.Trim();
+
+                if (context.levesek.Any(x => x.nev == ujNev))
+                {
+                    MessageBox.Show("Ilyen leves már létezik!");
+                    return;
+                }
+
                 context.levesek.Add(new leves()
                 {
-                    nev = levestb.Text
+                    nev = ujNev
                 });
+
                 levestb.Text = "";
                 context.SaveChanges();
             }
@@ -99,54 +108,123 @@ namespace WPF_menza_projekt
         {
             if (foeteltb.Text.Trim() != "")
             {
+                string ujNev = foeteltb.Text.Trim();
+
+                if (context.foetelek.Any(x => x.nev == ujNev))
+                {
+                    MessageBox.Show("Ilyen főétel már létezik!");
+                    return;
+                }
+
                 context.foetelek.Add(new foetel()
                 {
-                    nev = foeteltb.Text
+                    nev = ujNev
                 });
+
                 foeteltb.Text = "";
                 context.SaveChanges();
             }
             else
+            {
                 MessageBox.Show("nem lehet ures!");
-            
+            }
+
         }
 
         private void desszertbt_Click(object sender, RoutedEventArgs e)
         {
             if (desszerttb.Text.Trim() != "")
             {
+                string ujNev = desszerttb.Text.Trim();
+
+                if (context.desszertek.Any(x => x.nev == ujNev))
+                {
+                    MessageBox.Show("Ilyen desszert már létezik!");
+                    return;
+                }
+
                 context.desszertek.Add(new desszert()
                 {
-                    nev = desszerttb.Text
+                    nev = ujNev
                 });
+
                 desszerttb.Text = "";
                 context.SaveChanges();
             }
             else
+            {
                 MessageBox.Show("nem lehet ures!");
-            
+            }
+
         }
 
         private void napietkezesbt_Click(object sender, RoutedEventArgs e)
         {
-            if (datumpicker != null && foetelcb != null && levescb != null)
+            if (datumpicker.SelectedDate != null && foetelcb.SelectedItem != null && levescb.SelectedItem != null)
             {
+                DateOnly datum = DateOnly.FromDateTime((DateTime)datumpicker.SelectedDate);
+
+                if (context.napietkezesek.Any(x => x.datum == datum))
+                {
+                    MessageBox.Show("Erre a napra már van étkezés!");
+                    return;
+                }
+
                 napietkezes napietkezes = new()
                 {
-                    
-                    datum = DateOnly.FromDateTime((DateTime)datumpicker.SelectedDate),
+                    datum = datum,
                     foetel = foetelcb.SelectedItem as foetel,
                     leves = levescb.SelectedItem as leves,
                     desszert = desszertcb.SelectedItem as desszert
-                }; 
+                };
+
                 context.napietkezesek.Add(napietkezes);
+                context.SaveChanges();
+
                 datumpicker.SelectedDate = null;
-                levescb.SelectedItem = null;    
+                levescb.SelectedItem = null;
                 foetelcb.SelectedItem = null;
                 desszertcb.SelectedItem = null;
+
                 vendegekfrissitese();
-                context.SaveChanges();
             }
+            else
+            {
+                MessageBox.Show("Minden mezőt ki kell tölteni!");
+            }
+        }
+        private void osszkapcsolasbt_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedVendeg = vendegeklv.SelectedItem as vendeg;
+            var selectedEtkezes = napietkeslv.SelectedItem as napietkezes;
+
+            if (selectedVendeg == null || selectedEtkezes == null)
+            {
+                MessageBox.Show("Válassz ki egy vendéget és egy napi étkezést!");
+                return;
+            }
+
+            // 🔥 DUPLIKÁCIÓ ELLENŐRZÉS
+            bool exists = context.vendegnapietkezesek.Any(x =>
+                x.vendegid == selectedVendeg.Id &&
+                x.napietkezesid == selectedEtkezes.Id);
+
+            if (exists)
+            {
+                MessageBox.Show("Ez már össze van kapcsolva!");
+                return;
+            }
+
+            var kapcsolat = new vendegnapietkezes()
+            {
+                vendegid = selectedVendeg.Id,
+                napietkezesid = selectedEtkezes.Id
+            };
+
+            context.vendegnapietkezesek.Add(kapcsolat);
+            context.SaveChanges();
+
+            MessageBox.Show("Sikeres összekapcsolás!");
         }
     }
 }
